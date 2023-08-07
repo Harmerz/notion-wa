@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/kirim",
-      "schedule": "30 * * * *"
+      "path": "/api/cron",
+      "schedule": "*/30 * * * *"
     }
   ]
 }
