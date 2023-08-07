@@ -68,7 +68,7 @@ app.get("/", (req, res) => {
             }
             );
             console.log(pesan);
-        res.send(result);
+        res.send(pesan);
     });
 });
 const schedule = require('node-schedule');
