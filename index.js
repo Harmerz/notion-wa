@@ -63,7 +63,7 @@ app.get("/", (req, res) => {
                     list += " (Tag:" + tag + ")";
                 }
                 if (name) {
-                    pesan = pesan + index + ". " + list + "\n";
+                    pesan = pesan + (index+1) + ". " + list + "\n";
                 }
             }
             );
@@ -104,7 +104,7 @@ schedule.scheduleJob('* * * * 1', function(){
                     list += " (Tag:" + tag + ")";
                 }
                 if (name) {
-                    pesan = pesan + index + ". " + list + "\n";
+                    pesan = pesan + (index+1) + ". " + list + "\n";
                 }
             }
             );
@@ -120,8 +120,8 @@ schedule.scheduleJob('* * * * 1', function(){
 
 
 
-schedule.scheduleJob('0 * * * *', function(){
-  let pesan = 'Hallo Haikal, your task this week is: \n'
+schedule.scheduleJob('30 * * * *', function(){
+  let pesan = 'Hallo Haikal, your task this Day is: \n'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
@@ -151,7 +151,7 @@ schedule.scheduleJob('0 * * * *', function(){
                     list += " (Tag:" + tag + ")";
                 }
                 if (name) {
-                    pesan = pesan + index + ". " + list + "\n";
+                    pesan = pesan + (index+1) + ". " + list + "\n";
                 }
             }
             );
