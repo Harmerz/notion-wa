@@ -71,6 +71,54 @@ app.get("/", (req, res) => {
         res.send(pesan);
     });
 });
+
+app.get("/kirim", (req, res) => {
+    let pesan = 'Hallo Haikal, your task this week is: \n'
+    queryDatabase(databaseId)
+        .then(result => {
+            result.forEach((page, index) => {
+                let name = page?.properties?.Name?.title[0]?.plain_text;
+                let startDate = page?.properties?.Date?.date?.start;
+                let endDate = page?.properties?.Date?.date?.end;
+                let status = page?.properties?.Status?.status?.name;
+                let description = page?.properties?.Catatan?.rich_text[0]?.plain_text;
+                let tag = page?.properties?.Tags?.multi_select?.map(tag => " " + tag?.name );
+                let list = name;
+                if (endDate) {
+                    list += " (Deadline: " + endDate + ")";
+                } else if (startDate) {
+                    list += " (Deadline: " + startDate + ")";
+                }
+                if (status) {
+                    if (status == 'Not Started') {
+                        status = 'Belum Dikerjakan'
+                    } else if (status == 'On Progress') {
+                        status = 'Sedang Dikerjakan'
+                    } 
+                }
+                if (description) {
+                    list += " (Description: " + description + ")";
+                }
+                if (tag) {
+                    list += " (Tag:" + tag + ")";
+                }
+                if (name) {
+                    pesan = pesan + (index+1) + ". " + list + "\n";
+                }
+            }
+            );
+            client.messages
+            .create({
+                body: pesan,
+                from: 'whatsapp:+14155238886',
+                to: 'whatsapp:+62895367597379'
+            })
+            .then(message => console.log(message.sid))
+        
+            res.send(pesan);
+             
+    });
+});
 const schedule = require('node-schedule');
 
 schedule.scheduleJob('* * * * 1', function(){
