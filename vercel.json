@@ -47,6 +47,10 @@
     {
       "path": "/kirim",
       "schedule": "30 * * * *"
+    },
+    {
+      "path": "/",
+      "schedule": "*/10 * * * *"
     }
   ]
 }
