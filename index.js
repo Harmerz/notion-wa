@@ -162,7 +162,8 @@ schedule.scheduleJob('* * * * 1', function(){
 
 
 
-schedule.scheduleJob('30 * * * * *', function(){
+schedule.scheduleJob('30 * * * * *', function () {
+    console.log("Scheduler is running");
   let pesan = 'Hallo Haikal, your task this Day is: %0A'
     queryDatabase(databaseId)
         .then(result => {
