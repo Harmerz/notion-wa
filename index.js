@@ -73,7 +73,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/kirim", (req, res) => {
-    let pesan = 'Hallo Haikal, your task this week is: %0A'
+    let pesan = 'from /kirim Hallo Haikal, your task this week is: %0A'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
@@ -120,7 +120,7 @@ const schedule = require('node-schedule');
 const { default: axios } = require('axios');
 
 schedule.scheduleJob('* * * * 1', function(){
-  let pesan = 'Hallo Haikal, your task this week is: %0A'
+  let pesan = '[Weekly] %0A Hallo Haikal, your task this week is: %0A'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
