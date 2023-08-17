@@ -162,9 +162,9 @@ schedule.scheduleJob('* * * * 1', function(){
 
 
 
-schedule.scheduleJob('30 * * * * *', function () {
+schedule.scheduleJob('*/10 * * * *', function () {
     console.log("Scheduler is running");
-  let pesan = 'Hallo Haikal, your task this Day is: %0A'
+  let pesan = '[Setiap 10 Menit] %0A Hallo Haikal, your task this Day is: %0A'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
