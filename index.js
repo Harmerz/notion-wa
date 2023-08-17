@@ -33,7 +33,7 @@ const app = express();
 app.listen(4000, () => console.log("Server listening at port 4000"));
 
 app.get("/", (req, res) => {
-    let pesan = 'Hallo Haikal, your task this week is: \n'
+    let pesan = 'Hallo Haikal, your task this week is: %0A'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
@@ -63,7 +63,7 @@ app.get("/", (req, res) => {
                     list += " (Tag:" + tag + ")";
                 }
                 if (name) {
-                    pesan = pesan + (index+1) + ". " + list + "\n";
+                    pesan = pesan + (index+1) + ". " + list + "%0A";
                 }
             }
             );
@@ -73,7 +73,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/kirim", (req, res) => {
-    let pesan = 'Hallo Haikal, your task this week is: \n'
+    let pesan = 'Hallo Haikal, your task this week is: %0A'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
@@ -103,26 +103,24 @@ app.get("/kirim", (req, res) => {
                     list += " (Tag:" + tag + ")";
                 }
                 if (name) {
-                    pesan = pesan + (index+1) + ". " + list + "\n";
+                    pesan = pesan + (index+1) + ". " + list + "%0A";
                 }
             }
             );
-            client.messages
-            .create({
-                body: pesan,
-                from: 'whatsapp:+14155238886',
-                to: 'whatsapp:+62895367597379'
-            })
-            .then(message => console.log(message.sid))
+            axios.post(
+                `https://api.callmebot.com/whatsapp.php?phone=62895367597379&text=${pesan}&apikey=4512480`
+            )
+
         
             res.send(pesan);
              
     });
 });
 const schedule = require('node-schedule');
+const { default: axios } = require('axios');
 
 schedule.scheduleJob('* * * * 1', function(){
-  let pesan = 'Hallo Haikal, your task this week is: \n'
+  let pesan = 'Hallo Haikal, your task this week is: %0A'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
@@ -152,24 +150,20 @@ schedule.scheduleJob('* * * * 1', function(){
                     list += " (Tag:" + tag + ")";
                 }
                 if (name) {
-                    pesan = pesan + (index+1) + ". " + list + "\n";
+                    pesan = pesan + (index+1) + ". " + list + "%0A";
                 }
             }
             );
-            client.messages
-            .create({
-                body: pesan,
-                from: 'whatsapp:+14155238886',
-                to: 'whatsapp:+62895367597379'
-            })
-            .then(message => console.log(message.sid))
+            axios.post(
+                `https://api.callmebot.com/whatsapp.php?phone=62895367597379&text=${pesan}&apikey=4512480`
+            )
             });
 });
 
 
 
-schedule.scheduleJob('30 * * * *', function(){
-  let pesan = 'Hallo Haikal, your task this Day is: \n'
+schedule.scheduleJob('30 * * * * *', function(){
+  let pesan = 'Hallo Haikal, your task this Day is: %0A'
     queryDatabase(databaseId)
         .then(result => {
             result.forEach((page, index) => {
@@ -199,16 +193,12 @@ schedule.scheduleJob('30 * * * *', function(){
                     list += " (Tag:" + tag + ")";
                 }
                 if (name) {
-                    pesan = pesan + (index+1) + ". " + list + "\n";
+                    pesan = pesan + (index+1) + ". " + list + "%0A";
                 }
             }
             );
-            client.messages
-            .create({
-                body: pesan,
-                from: 'whatsapp:+14155238886',
-                to: 'whatsapp:+62895367597379'
-            })
-            .then(message => console.log(message.sid))
+             axios.post(
+                `https://api.callmebot.com/whatsapp.php?phone=62895367597379&text=${pesan}&apikey=4512480`
+            )
             });
 });
